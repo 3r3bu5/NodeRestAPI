@@ -1,0 +1,16 @@
+{
+	"name": "First Dish",
+	"description": "This is my first Dish at all",
+	"image": "public/images/first",
+	"category": "Meat",
+	"label" : "Hot" ,
+	"price" : 150 ,
+	"featured" : "true",
+	"comments" : [
+		{
+			"rating" : 5,
+			"comment": "tasty",
+			"author": "Ashraf Gehad"
+		}
+	]
+}

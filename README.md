@@ -1,0 +1,16 @@
+## DishRouter
+### Dishes
+    [x] Get 
+    [x] Post
+    [x] Put
+    [x] Delete
+### DishID
+    [x] Get 
+    [x] Post
+    [x] Put
+    [x] Delete
+### DishComments
+    [] Get 
+    [] Post
+    [] Put
+    [] Delete
