@@ -12,9 +12,9 @@
 ## Todo
 
 #### Promotions
-- [ ] Construct promotions router
-- [ ] construct promotions model
+- [x] Construct promotions router
+- [x] construct promotions model
 
 #### Leader
-- [ ] Construct leader router
-- [ ] construct leader model
+- [x] Construct leader router
+- [x] construct leader model
