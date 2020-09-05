@@ -113,12 +113,20 @@ router
 	.route( "/:id/comments/" )
 	.get( ( req, res, next ) => {
 		Dishes.findById( req.params.id )
-			.then( ( dishes ) => {
-				console.log( "Maybe found?" );
-				res.status( 200 );
-				res.setHeader( "Content-Type","application/json" );
-				res.json( dishes.comments );
+			.then( ( dish ) => {
 
+				if( dish != null ){ 
+					res.status( 200 );
+					res.setHeader( "Content-Type","application/json" );
+					res.json( dish.comments );
+				} else {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` Dish Id ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				}
+				
 		
 			}, ( err ) => next( err ) 
 			)
@@ -128,12 +136,21 @@ router
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
 
-				res.status( 200 );
-				res.setHeader( "Content-Type","application/json" );
-				dish.comments.push( req.body );
-				dish.save();
-				res.json( dish );
-
+				if( dish != null ){ 
+					dish.comments.push( req.body );
+					dish.save().then( ( dish ) => {
+						res.status( 200 );
+						res.setHeader( "Content-Type","application/json" );
+						res.json( dish );
+					} ) .catch( ( err ) => next( err ) );
+					
+				} else {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` Dish Id ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				}
 	
 			}, ( err ) => next( err ) 
 			)
@@ -147,14 +164,21 @@ router
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
 
-				res.status( 200 );
-				res.setHeader( "Content-Type","application/json" );
-				// eslint-disable-next-line for-direction
-				dish.comments = [];
-				dish.save();
-
-				res.json( dish );
-
+				if( dish != null ){ 
+					dish.comments = [];
+					dish.save().then( ( dish ) => {
+						res.status( 200 );
+						res.setHeader( "Content-Type","application/json" );
+						res.json( dish );
+					} ) .catch( ( err ) => next( err ) );
+					
+				} else {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` Dish Id ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				}
 	
 			}, ( err ) => next( err ) 
 			)
@@ -170,10 +194,24 @@ router
 			.then( ( dish ) => {
 
 				var comment = dish.comments.id( req.params.commentID );
-				res.status( 200 );
-				res.setHeader( "Content-Type","application/json" );
-				res.json( comment );
 
+				if( dish != null && comment != null ){ 
+					res.status( 200 );
+					res.setHeader( "Content-Type","application/json" );
+					res.json( comment );
+				} else if( dish ==null ) {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` dish Id  ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				} else {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` comment Id ${req.params.commentID} on dish ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				}
 		
 			}, ( err ) => next( err ) 
 			)
@@ -189,11 +227,37 @@ router
 			.then( ( dish ) => {
 
 				var comment = dish.comments.id( req.params.commentID );
-				comment.set( req.body );
-				dish.save();
-				res.status( 200 );
-				res.setHeader( "Content-Type","application/json" );
-				res.json( comment );
+
+				if( dish != null && comment != null ){ 
+
+					if ( req.body.rating ){
+						comment.rating = req.body.rating;
+					}
+					if ( req.body.comment ){
+						comment.comment = req.body.comment;
+					}
+
+					dish.save().then( ( dish ) => {
+						res.status( 200 );
+						res.setHeader( "Content-Type","application/json" );
+						res.json( comment );
+					} ) .catch( ( err ) => next( err ) );
+
+				} else if( dish == null ) {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` dish Id  ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				} else {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` comment Id ${req.params.commentID} on dish ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				}
+
+				
 		
 			}, ( err ) => next( err ) 
 			)
@@ -203,12 +267,31 @@ router
 		
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
+				var comment = dish.comments.id( req.params.commentID );
+				if( dish != null && comment != null ){ 
+					dish.comments.id( req.params.commentID ).remove();
 				
-				dish.comments.id( req.params.commentID ).remove();
-				dish.save();
-				res.status( 200 );
-				res.setHeader( "Content-Type","application/json" );
-				res.json( { message: "Deleted the dish comment" } );
+					dish.save().then( ( dish ) => {
+						res.status( 200 );
+						res.setHeader( "Content-Type","application/json" );
+						res.json( dish.comments );
+					} ) .catch( ( err ) => next( err ) );
+
+				} else if( dish ==null ) {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` dish Id  ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				} else {
+					res.status( 404 );
+					// eslint-disable-next-line no-undef
+					err = new Error( ` comment Id ${req.params.commentID} on dish ${req.params.id} has not found!` );
+					// eslint-disable-next-line no-undef
+					return next( err );
+				}
+				
+				
 
 		
 			}, ( err ) => next( err ) 
