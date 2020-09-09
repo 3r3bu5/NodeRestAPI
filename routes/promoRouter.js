@@ -10,7 +10,7 @@ router
 		promo.find( {} )
 			.then( ( promos ) => {
 				res.status( 200 );
-				res.setHeader( "Content-type","application/json" );
+				res.setHeader( "Content-Type","application/json" );
 				res.json( promos );
 			} , ( err ) => next( err ) ) 
 		
@@ -20,7 +20,7 @@ router
 		promo.create( req.body )
 			.then( ( promo ) => {
 				res.status( 200 );
-				res.setHeader( "Content-type","application/json" );
+				res.setHeader( "Content-Type","application/json" );
 				res.json( promo );
 			}, ( err ) => next( err )  ) 
 		
@@ -35,7 +35,7 @@ router
 			// eslint-disable-next-line no-unused-vars
 			.then( ( promos ) => {
 				res.status( 200 );
-				res.setHeader( "Content-type","application/json" );
+				res.setHeader( "Content-Type","application/json" );
 				res.json( { message: "Deleted all promotions " } );
 			} , ( err ) => next( err ) ) 
 		

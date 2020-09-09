@@ -1,20 +1,43 @@
 
 ## Done
 
-#### Dish
-- [x] Construct dish router
-- [x] construct dish model
+##### Dish
 
-#### DishComments
-- [x] Construct dishComments router
-- [x] construct dishComments model
+- [x] Construct dish router (Controller)
+- [x] Construct dish model
+- [ ] Construct dish view
+
+##### DishComments
+
+- [x] Construct dishComments router (Controller)
+- [x] Construct dishComments model
+- [ ] Construct dish view
+
+##### Promotions
+
+- [x] Construct promotions router (Controller)
+- [x] Construct promotions model
+- [ ] Construct dish view
+
+##### Leader
+
+- [x] Construct leader router (Controller)
+- [x] Construct leader model
+- [ ] Construct dish view
+
+##### Authentication and Authorization
+
+- [x] Apply basic authentication
+- [x] Support users sessions
+
 
 ## Todo
 
-#### Promotions
-- [x] Construct promotions router
-- [x] construct promotions model
+##### Users
+- [x] Construct Users router (Controller)
+- [x] Construct Users model
+- [ ] Construct dish view 
 
-#### Leader
-- [x] Construct leader router
-- [x] construct leader model
+##### Global
+- [ ] views
+

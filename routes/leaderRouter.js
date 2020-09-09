@@ -10,7 +10,7 @@ router
 		leader.find( {} )
 			.then( ( leaders ) => {
 				res.status( 200 );
-				res.setHeader( "Content-type","application/json" );
+				res.setHeader( "Content-Type","application/json" );
 				res.json( leaders );
 			} , ( err ) => next( err ) ) 
 		
@@ -20,7 +20,7 @@ router
 		leader.create( req.body )
 			.then( ( leader ) => {
 				res.status( 200 );
-				res.setHeader( "Content-type","application/json" );
+				res.setHeader( "Content-Type","application/json" );
 				res.json( leader );
 			}, ( err ) => next( err )  ) 
 		
@@ -35,7 +35,7 @@ router
 			// eslint-disable-next-line no-unused-vars
 			.then( ( leaders ) => {
 				res.status( 200 );
-				res.setHeader( "Content-type","application/json" );
+				res.setHeader( "Content-Type","application/json" );
 				res.json( { message: "Deleted all leaders " } );
 			} , ( err ) => next( err ) ) 
 		
