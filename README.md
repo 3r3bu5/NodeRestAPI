@@ -34,8 +34,8 @@
 ## Todo
 
 ##### Users
-- [x] Construct Users router (Controller)
-- [x] Construct Users model
+- [ ] Construct Users router (Controller)
+- [ ] Construct Users model
 - [ ] Construct dish view 
 
 ##### Global
