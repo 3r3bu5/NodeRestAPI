@@ -25,6 +25,11 @@
 - [x] Construct leader model
 - [ ] Construct dish view
 
+##### Users
+- [x] Construct Users router (Controller)
+- [x] Construct Users model
+- [ ] Construct dish view 
+
 ##### Authentication and Authorization
 
 - [x] Apply basic authentication
@@ -33,10 +38,7 @@
 
 ## Todo
 
-##### Users
-- [ ] Construct Users router (Controller)
-- [ ] Construct Users model
-- [ ] Construct dish view 
+
 
 ##### Global
 - [ ] views
