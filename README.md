@@ -5,30 +5,25 @@
 
 - [x] Construct dish router (Controller)
 - [x] Construct dish model
-- [ ] Construct dish view
 
 ##### DishComments
 
 - [x] Construct dishComments router (Controller)
 - [x] Construct dishComments model
-- [ ] Construct dish view
 
 ##### Promotions
 
 - [x] Construct promotions router (Controller)
 - [x] Construct promotions model
-- [ ] Construct dish view
 
 ##### Leader
 
 - [x] Construct leader router (Controller)
 - [x] Construct leader model
-- [ ] Construct dish view
 
 ##### Users
 - [x] Construct Users router (Controller)
 - [x] Construct Users model
-- [ ] Construct dish view 
 
 ##### Authentication and Authorization
 
@@ -38,8 +33,18 @@
 
 ## Todo
 
-
-
 ##### Global
-- [ ] views
+- [x] ~~ ~~	Use environment variables instead of hard-coded credentials. ~~ ~~	
+- [ ] Support JWT token Authentication.
+- [ ] Construct views.
+
+    - [ ] Construct dish view.
+    - [ ] Construct dishComments view.
+    - [ ] Construct promotion view.
+    - [ ] Construct leader view.
+    - [ ] Construct Users view.
+
+
+
+
 
