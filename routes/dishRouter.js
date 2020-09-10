@@ -1,6 +1,7 @@
 const express =  require( "express" );
 const Dishes = require( "../models/dishModels" );
 const router = express.Router();
+const authenticate = require( "../authenticate" );
 router.use( express.json() );
 
 
@@ -21,7 +22,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( ( req, res, next ) => {
+	.post( authenticate.verifyUser ,( req, res, next ) => {
 		Dishes.create( req.body )
 			.then( ( dish ) => {
 
@@ -34,11 +35,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.put( ( req, res, )=>{
+	.put( authenticate.verifyUser, ( req, res, )=>{
 		res.status( 405 );
 		res.send( { message: "PUT method is not allowed" } );
 	} )
-	.delete( ( req,res, next )=>{
+	.delete( authenticate.verifyUser,( req,res, next )=>{
 		Dishes.remove( req.body )
 			.then( ( dishes ) => {
 
@@ -69,11 +70,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( ( req,res )=>{
+	.post( authenticate.verifyUser,( req,res )=>{
 		res.status( 405 );
 		res.send( { message: "POST method is not allowed" } );
 	} )
-	.put( ( req, res, next ) => {
+	.put( authenticate.verifyUser, ( req, res, next ) => {
 
 		Dishes.findByIdAndUpdate( req.params.id, {
 			$set: req.body
@@ -90,7 +91,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.delete( ( req, res, next  ) => {
+	.delete( authenticate.verifyUser, ( req, res, next  ) => {
 		
 		Dishes.findByIdAndDelete( req.params.id )
 			.then( ( dish ) => {
@@ -133,7 +134,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( ( req, res, next ) => {
+	.post( authenticate.verifyUser, ( req, res, next ) => {
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
 
@@ -157,11 +158,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.put( ( req, res, )=>{
+	.put( authenticate.verifyUser, ( req, res, )=>{
 		res.status( 405 );
 		res.send( { message: "PUT method is not allowed" } );
 	} )
-	.delete( ( req,res, next )=>{
+	.delete( authenticate.verifyUser, ( req,res, next )=>{
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
 
@@ -218,11 +219,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( ( req,res )=>{
+	.post( authenticate.verifyUser, ( req,res )=>{
 		res.status( 405 );
 		res.send( { message: "POST method is not allowed" } );
 	} )
-	.put( ( req, res, next ) => {
+	.put( authenticate.verifyUser, ( req, res, next ) => {
 
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
@@ -265,7 +266,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.delete( ( req, res, next  ) => {
+	.delete( authenticate.verifyUser,( req, res, next  ) => {
 		
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {

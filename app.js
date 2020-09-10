@@ -4,10 +4,12 @@ const express = require( "express" );
 const path = require( "path" );
 const cookieParser = require( "cookie-parser" );
 const logger = require( "morgan" );
+const config = require( "./config" );
 const mongoose = require( "mongoose" );
 const session = require( "express-session" );
 const FileStore = require( "session-file-store" )( session );
 const passport = require( "passport" );
+
 
 // Routers
 const indexRouter = require( "./routes/index" );
@@ -37,33 +39,14 @@ app.use( express.json() );
 app.use( express.urlencoded( { extended: false } ) );
 //app.use( cookieParser( "MrbOOMbASTIC" ) );
 
-app.use( session( {
-	name: "session_Id",
-	secret: "MrbOOMbASTIC",
-	saveUninitialized: false,
-	resave: false,
-	store: new FileStore()
 
-} ) );
 app.use( passport.initialize() );
 app.use( passport.session() );
 
 app.use( "/", indexRouter );
 app.use( "/users", usersRouter );
 
-function auth ( req, res, next ) {
-	console.log( req.session );
 
-	if( !req.user ) {
-		var err = new Error( "You are not authenticated!" );
-		err.status = 403;
-		return next( err );
-	}
-	else {
-		next();
-	}
-}
-app.use( auth );
 app.use( express.static( path.join( __dirname, "public" ) ) );
 
 

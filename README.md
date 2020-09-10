@@ -35,7 +35,8 @@
 
 ##### Global
 - [x]  ~~Use environment variables instead of hard-coded credentials.~~	
-- [ ] Support JWT token Authentication.
+- [x]  ~~Support JWT token Authentication.~~
+- [x]  ~~Implement authorization on POST/PUT/DELETE methods for routes.~~
 - [ ] Construct views.
 
     - [ ] Construct dish view.

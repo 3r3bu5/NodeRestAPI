@@ -8,7 +8,7 @@ const passport = require( "passport" );
 var router = express.Router();
 
 router.get( "/" , ( req,res, ) => {
-	if( !req.session.user ){
+	if( !req.user ){
 		res.status( 403 );
 		res.send( "You must login first" );
 		res.redirect( " /" );
@@ -37,10 +37,11 @@ router.post( "/signup", ( req, res, next ) => {
 		}} );} );
   
 router.post( "/login", passport.authenticate( "local" ) ,( req, res, next ) => {
-  
+   
+	var token = authenticate.getToken( { _id: req.user._id } );
 	res.status( 200 );
 	res.setHeader( "Content-Type", "application/json" );
-	res.json( { status: true  , message: "Logged-In Successful!" } );
+	res.json( { status: true  , token: token , message: "Logged-In Successful!" } );
 
 } );
   

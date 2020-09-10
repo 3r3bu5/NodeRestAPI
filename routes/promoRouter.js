@@ -2,6 +2,7 @@
 const express =  require( "express" );
 const router = express.Router();
 const promo = require( "../models/promoModel" );
+const authenticate = require( "../authenticate" );
 router.use( express.json() );
 
 router
@@ -16,7 +17,7 @@ router
 		
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( ( req, res, next ) => {
+	.post( authenticate.verifyUser,( req, res, next ) => {
 		promo.create( req.body )
 			.then( ( promo ) => {
 				res.status( 200 );
@@ -26,11 +27,11 @@ router
 		
 			.catch( ( err ) => next( err ) );
 	} )
-	.put( ( req,res )=>{
+	.put( authenticate.verifyUser,( req,res )=>{
 		res.status( 405 );
 		res.send( { message: " PUT method is not allowed on /promotions "  } );
 	} )
-	.delete( ( req,res,next )=> {
+	.delete( authenticate.verifyUser,( req,res,next )=> {
 		promo.remove()
 			// eslint-disable-next-line no-unused-vars
 			.then( ( promos ) => {
@@ -44,7 +45,7 @@ router
 
 router
 	.route( "/:id" )
-	.get( ( req, res, next ) => {
+	.get(authenticate.verifyUser, ( req, res, next ) => {
 		promo.findById( req.params.id )
 			.then( ( promo ) => {
 
@@ -66,11 +67,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( ( req,res )=>{
+	.post(authenticate.verifyUser, ( req,res )=>{
 		res.status( 405 );
 		res.send( { message: "POST method is not allowed" } );
 	} )
-	.put( ( req, res, next ) => {
+	.put(authenticate.verifyUser, ( req, res, next ) => {
 
 		promo.findByIdAndUpdate( req.params.id, {
 			$set: req.body
@@ -94,7 +95,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.delete( ( req, res, next  ) => {
+	.delete(authenticate.verifyUser, ( req, res, next  ) => {
 		
 		promo.findByIdAndDelete( req.params.id )
 			.then( ( promo ) => {
