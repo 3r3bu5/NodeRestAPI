@@ -34,7 +34,7 @@
 ## Todo
 
 ##### Global
-- [x] ~~ ~~	Use environment variables instead of hard-coded credentials. ~~ ~~	
+- [x]  ~~Use environment variables instead of hard-coded credentials.~~	
 - [ ] Support JWT token Authentication.
 - [ ] Construct views.
 
