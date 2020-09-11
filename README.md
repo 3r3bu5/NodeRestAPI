@@ -37,7 +37,7 @@
 - [x]  ~~Use environment variables instead of hard-coded credentials.~~	
 - [x]  ~~Support JWT token Authentication.~~
 - [x]  ~~Implement authorization on POST/PUT/DELETE methods for routes.~~
-- [ ]  User referencing instead of embedded for relating documents.
+- [ ]  Use referencing instead of embedded for relating documents.
 - [ ] Construct views.
 
     - [ ] Construct dish view.
