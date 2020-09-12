@@ -17,7 +17,7 @@ router
 		
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( authenticate.verifyUser,( req, res, next ) => {
+	.post( authenticate.verifyUser, authenticate.verifyAdmin, ( req, res, next ) => {
 		promo.create( req.body )
 			.then( ( promo ) => {
 				res.status( 200 );
@@ -27,11 +27,11 @@ router
 		
 			.catch( ( err ) => next( err ) );
 	} )
-	.put( authenticate.verifyUser,( req,res )=>{
+	.put( authenticate.verifyUser, authenticate.verifyAdmin,( req,res )=>{
 		res.status( 405 );
 		res.send( { message: " PUT method is not allowed on /promotions "  } );
 	} )
-	.delete( authenticate.verifyUser,( req,res,next )=> {
+	.delete( authenticate.verifyUser, authenticate.verifyAdmin,( req,res,next )=> {
 		promo.remove()
 			// eslint-disable-next-line no-unused-vars
 			.then( ( promos ) => {
@@ -45,7 +45,7 @@ router
 
 router
 	.route( "/:id" )
-	.get(authenticate.verifyUser, ( req, res, next ) => {
+	.get( ( req, res, next ) => {
 		promo.findById( req.params.id )
 			.then( ( promo ) => {
 
@@ -67,11 +67,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post(authenticate.verifyUser, ( req,res )=>{
+	.post( authenticate.verifyUser, authenticate.verifyAdmin, ( req,res )=>{
 		res.status( 405 );
 		res.send( { message: "POST method is not allowed" } );
 	} )
-	.put(authenticate.verifyUser, ( req, res, next ) => {
+	.put( authenticate.verifyUser, authenticate.verifyAdmin, ( req, res, next ) => {
 
 		promo.findByIdAndUpdate( req.params.id, {
 			$set: req.body
@@ -95,7 +95,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.delete(authenticate.verifyUser, ( req, res, next  ) => {
+	.delete( authenticate.verifyUser, authenticate.verifyAdmin, ( req, res, next  ) => {
 		
 		promo.findByIdAndDelete( req.params.id )
 			.then( ( promo ) => {

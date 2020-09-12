@@ -6,11 +6,5 @@
 	"label" : "Hot" ,
 	"price" : 150 ,
 	"featured" : "true",
-	"comments" : [
-		{
-			"rating" : 5,
-			"comment": "tasty",
-			"author": "Ashraf Gehad"
-		}
-	]
+	"comments" : []
 }

@@ -17,7 +17,7 @@ router
 		
 			.catch( ( err ) => next( err ) );
 	} )
-	.post(authenticate.verifyUser, ( req, res, next ) => {
+	.post( authenticate.verifyUser, authenticate.verifyAdmin, ( req, res, next ) => {
 		leader.create( req.body )
 			.then( ( leader ) => {
 				res.status( 200 );
@@ -27,11 +27,11 @@ router
 		
 			.catch( ( err ) => next( err ) );
 	} )
-	.put( authenticate.verifyUser,( req,res )=>{
+	.put( authenticate.verifyUser, authenticate.verifyAdmin,( req,res )=>{
 		res.status( 405 );
 		res.send( { message: " PUT method is not allowed on /leaders "  } );
 	} )
-	.delete( authenticate.verifyUser,( req,res,next )=> {
+	.delete( authenticate.verifyUser, authenticate.verifyAdmin,( req,res,next )=> {
 		leader.remove()
 			// eslint-disable-next-line no-unused-vars
 			.then( ( leaders ) => {
@@ -54,10 +54,10 @@ router
 					res.setHeader( "Content-Type","application/json" );
 					res.json( leader );
 				} else {
-					res.status( 404 );
 					// eslint-disable-next-line no-undef
 					err = new Error( ` leader Id ${req.params.id} has not been found!` );
 					// eslint-disable-next-line no-undef
+					err.status= 404 ;
 					return next( err );
 				}
 				
@@ -67,11 +67,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post(authenticate.verifyUser, ( req,res )=>{
+	.post( authenticate.verifyUser, authenticate.verifyAdmin, ( req,res )=>{
 		res.status( 405 );
 		res.send( { message: "POST method is not allowed" } );
 	} )
-	.put(authenticate.verifyUser, ( req, res, next ) => {
+	.put( authenticate.verifyUser, authenticate.verifyAdmin, ( req, res, next ) => {
 
 		leader.findByIdAndUpdate( req.params.id, {
 			$set: req.body
@@ -86,8 +86,8 @@ router
 					res.json( leader );
 			
 				} else {
-					res.status( 404 );
 					err = new Error( ` leader Id ${req.params.id} has not been found! ` );
+					err.status= 404 ;
 					return next( err );
 				}
 		
@@ -95,7 +95,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.delete(authenticate.verifyUser, ( req, res, next  ) => {
+	.delete( authenticate.verifyUser, authenticate.verifyAdmin, ( req, res, next  ) => {
 		
 		leader.findByIdAndDelete( req.params.id )
 			.then( ( leader ) => {
@@ -107,8 +107,8 @@ router
 					res.json( leader );
 			
 				} else {
-					res.status( 404 );
 					err = new Error( ` leader Id ${req.params.id} has not been found! ` );
+					err.status= 404 ;
 					return next( err );
 				}
 				
