@@ -21,6 +21,16 @@ const leaderRouter = require( "./routes/leaderRouter" );
 // express app
 const app = express();
 
+// allow only https requests
+app.all( "*", ( req, res, next ) => {
+	if ( req.secure ) {
+		return next();
+	}
+	else {
+		res.redirect( 307, "https://" + req.hostname + ":" + app.get( "secPort" ) + req.url );
+	}
+} );
+
 // DB connection
 const url = "mongodb://localhost:27017/conFusion";
 const connect = mongoose.connect( url );

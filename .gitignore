@@ -64,3 +64,6 @@ typings/
 
 # config
 config.js
+
+## certs
+bin/private*

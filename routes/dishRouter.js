@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const express =  require( "express" );
 const Dishes = require( "../models/dishModels" );
 const router = express.Router();
@@ -118,7 +119,6 @@ router
 		Dishes.findById( req.params.id )
 			.populate( "comments.author", "-_id -__v -admin" )
 			.then( ( dish ) => {
-
 				if( dish != null ){ 
 					res.status( 200 );
 					res.setHeader( "Content-Type","application/json" );
@@ -205,10 +205,8 @@ router
 	.route( "/:id/comments/:commentID" )
 	.get( ( req, res, next ) => {
 		Dishes.findById( req.params.id )
-			.populate( "comments.author" ," -_id -__v -admin" )    
-
+			.populate( "comments.author" ," -__v -admin" )   		
 			.then( ( dish ) => {
-
 				var comment = dish.comments.id( req.params.commentID );
 
 				if( dish != null && comment != null ){ 
@@ -242,6 +240,8 @@ router
 		Dishes.findById( req.params.id )
 			.populate( "comments.author" ,"  -__v -admin" )
 			.then( ( dish ) => {
+
+				console.log( req.user.id.toString() );
 
 				var comment = dish.comments.id( req.params.commentID );
 
