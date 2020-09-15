@@ -3,6 +3,7 @@ const express =  require( "express" );
 const Dishes = require( "../models/dishModels" );
 const router = express.Router();
 const authenticate = require( "../authenticate" );
+const cors = require( "../cors" );
 router.use( express.json() );
 
 
@@ -10,7 +11,8 @@ router.use( express.json() );
 
 router
 	.route( "/" )
-	.get( ( req, res, next ) => {
+	.options( cors.corsWithOptions, ( req,res ) => { res.sendStatus( 200 ); } )
+	.get( cors.cors, ( req, res, next ) => {
 		Dishes.find( {} )
 			.populate( "comments.author" ," -_id -__v -admin" )
 			.then( ( dishes ) => {
@@ -24,7 +26,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( authenticate.verifyUser, authenticate.verifyAdmin ,( req, res, next ) => {
+	.post( cors.corsWithOptions , authenticate.verifyUser, authenticate.verifyAdmin ,( req, res, next ) => {
 		Dishes.create( req.body )
 			.then( ( dish ) => {
 
@@ -37,11 +39,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.put( authenticate.verifyUser, authenticate.verifyAdmin , ( req, res, )=>{
+	.put( cors.corsWithOptions , authenticate.verifyUser, authenticate.verifyAdmin , ( req, res, )=>{
 		res.status( 405 );
 		res.send( { message: "PUT method is not allowed" } );
 	} )
-	.delete( authenticate.verifyUser, authenticate.verifyAdmin ,( req,res, next )=>{
+	.delete( cors.corsWithOptions , authenticate.verifyUser, authenticate.verifyAdmin ,( req,res, next )=>{
 		Dishes.remove( req.body )
 			.then( ( dishes ) => {
 
@@ -59,7 +61,8 @@ router
 
 router
 	.route( "/:id" )
-	.get( ( req, res, next ) => {
+	.options( cors.corsWithOptions, ( req,res ) => { res.status( 200 ); } )
+	.get( cors.cors, ( req, res, next ) => {
 		Dishes.findById( req.params.id )
 			.populate( "comments.author" ," -_id -__v -admin" )
 			.then( ( dish ) => {
@@ -73,11 +76,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( authenticate.verifyUser, authenticate.verifyAdmin ,( req,res )=>{
+	.post( cors.corsWithOptions ,  authenticate.verifyUser, authenticate.verifyAdmin ,( req,res )=>{
 		res.status( 405 );
 		res.send( { message: "POST method is not allowed" } );
 	} )
-	.put( authenticate.verifyUser, authenticate.verifyAdmin , ( req, res, next ) => {
+	.put( cors.corsWithOptions ,  authenticate.verifyUser, authenticate.verifyAdmin , ( req, res, next ) => {
 
 		Dishes.findByIdAndUpdate( req.params.id, {
 			$set: req.body
@@ -94,7 +97,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.delete( authenticate.verifyUser, authenticate.verifyAdmin , ( req, res, next  ) => {
+	.delete( cors.corsWithOptions ,  authenticate.verifyUser, authenticate.verifyAdmin , ( req, res, next  ) => {
 		
 		Dishes.findByIdAndDelete( req.params.id )
 			.then( ( dish ) => {
@@ -115,7 +118,8 @@ router
 
 router
 	.route( "/:id/comments/" )
-	.get( ( req, res, next ) => {
+	.options( cors.corsWithOptions, ( req,res ) => { res.status( 200 ); } )
+	.get( cors.cors,( req, res, next ) => {
 		Dishes.findById( req.params.id )
 			.populate( "comments.author", "-_id -__v -admin" )
 			.then( ( dish ) => {
@@ -138,7 +142,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( authenticate.verifyUser, ( req, res, next ) => {
+	.post( cors.corsWithOptions ,  authenticate.verifyUser, ( req, res, next ) => {
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
 
@@ -170,11 +174,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.put( authenticate.verifyUser, ( req, res, )=>{
+	.put( cors.corsWithOptions , authenticate.verifyUser, ( req, res, )=>{
 		res.status( 405 );
 		res.send( { message: "PUT method is not allowed" } );
 	} )
-	.delete( authenticate.verifyUser , authenticate.verifyAdmin , ( req,res, next )=>{
+	.delete( cors.corsWithOptions ,  authenticate.verifyUser , authenticate.verifyAdmin , ( req,res, next )=>{
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
 
@@ -203,7 +207,8 @@ router
 
 router
 	.route( "/:id/comments/:commentID" )
-	.get( ( req, res, next ) => {
+	.options( cors.corsWithOptions, ( req,res ) => { res.status( 200 ); } )
+	.get( cors.cors,( req, res, next ) => {
 		Dishes.findById( req.params.id )
 			.populate( "comments.author" ," -__v -admin" )   		
 			.then( ( dish ) => {
@@ -231,11 +236,11 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.post( authenticate.verifyUser , ( req,res )=>{
+	.post( cors.corsWithOptions ,  authenticate.verifyUser , ( req,res )=>{
 		res.status( 405 );
 		res.send( { message: "POST method is not allowed" } );
 	} )
-	.put( authenticate.verifyUser , ( req, res, next ) => {
+	.put( cors.corsWithOptions , authenticate.verifyUser , ( req, res, next ) => {
 
 		Dishes.findById( req.params.id )
 			.populate( "comments.author" ,"  -__v -admin" )
@@ -295,7 +300,7 @@ router
 			)
 			.catch( ( err ) => next( err ) );
 	} )
-	.delete( authenticate.verifyUser ,( req, res, next  ) => {
+	.delete( cors.corsWithOptions ,  authenticate.verifyUser ,( req, res, next  ) => {
 		
 		Dishes.findById( req.params.id )
 			.then( ( dish ) => {
