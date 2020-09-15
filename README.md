@@ -44,7 +44,12 @@
 - [x]  ~~Allow an Admin to be able to GET all the registered users' information from the database~~
 - [x]  ~~Allow a registered user update a submitted comment and delete a submitted comment. The user should be restricted to perform such operations only on his/her own comments . No user or even the Admin can edit or delete the comments submitted by other users~~
 - [x] ~~Support HTTPS and force users to send only HTTPS requests~~
-- [x] ~~Added UploadRouter to handle upload images~~
+- [x] ~~Add UploadRouter to handle upload images~~
+- [x] ~~Support CORS~~
+- [ ]   Implement OAuth
+- [ ]   Security Enhancements (maybe)?
+- [ ]   Firebase (maybe) ?
+- [ ]   Allow uploading files to AWS S3 instead of local storage ?
 - [ ] Construct views.
     - [ ] Construct dish view.
     - [ ] Construct dishComments view.
