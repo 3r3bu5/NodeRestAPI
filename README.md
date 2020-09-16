@@ -50,6 +50,7 @@
 - [ ]   Security Enhancements (maybe)?
 - [ ]   Firebase (maybe) ?
 - [ ]   Allow uploading files to AWS S3 instead of local storage ?
+- [ ]   Implement favorites model/router
 - [ ] Construct views.
     - [ ] Construct dish view.
     - [ ] Construct dishComments view.
