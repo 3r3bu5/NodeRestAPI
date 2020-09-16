@@ -72,5 +72,31 @@ router.get( "/logout", cors.cors , ( req, res, next ) => {
 	  next( err );
 	}
 } );
+router.get( "/facebook/token", cors.cors, passport.authenticate( "facebook" ) ,( req, res, next ) => { 
+	res.status( 200 );
+} );
 
+router.get( "/facebook/callback", cors.cors, passport.authenticate( "facebook" ) ,( req, res, next ) => {
+   
+	if ( req.user ) {
+		var token = authenticate.getToken( { _id: req.user._id } );
+		res.statusCode = 200;
+		res.setHeader( "Content-Type", "application/json" );
+		res.json( { success: true, token: token, status: "You are successfully logged in!" } );
+	  }
+} );
+
+router.get( "/github/token", cors.cors, passport.authenticate( "github" ) ,( req, res, next ) => { 
+	res.status( 200 );
+} );
+
+router.get( "/github/callback", cors.cors, passport.authenticate( "github" ) ,( req, res, next ) => {
+   
+	if ( req.user ) {
+		var token = authenticate.getToken( { _id: req.user._id } );
+		res.statusCode = 200;
+		res.setHeader( "Content-Type", "application/json" );
+		res.json( { success: true, token: token, status: "You are successfully logged in!" } );
+	  }
+} );
 module.exports = router;

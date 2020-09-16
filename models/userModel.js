@@ -9,6 +9,9 @@ var User = new Schema( {
 		type: String,
 		default: ""
 	},
+	facebookId: String,
+	githubId: String,
+	fullname: String,
 	lastname: {
 		type: String,
 		default: ""

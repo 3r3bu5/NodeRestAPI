@@ -6,6 +6,8 @@ const User = require( "./models/userModel" );
 const passport = require( "passport" );
 const LocalStrategy = require( "passport-local" ).Strategy;
 const JwtStrategy = require( "passport-jwt" ).Strategy;
+const GitHubStrategy = require( "passport-github" ).Strategy;
+const FacebookStrategy = require( "passport-facebook" ).Strategy;
 const ExtractJwt = require( "passport-jwt" ).ExtractJwt;
 const config = require( "./config" );
 var jwt = require( "jsonwebtoken" );
@@ -52,3 +54,68 @@ exports.verifyAdmin = function( req,res,next ){
 	}
 
 };
+
+exports.facebookPassport = passport.use( new FacebookStrategy( {
+
+	clientID: config.facebook.client_id,
+	clientSecret: config.facebook.client_secret,
+	callbackURL: config.facebook.callbackURL
+
+} , function( accessToken, refreshToken, profile, done ) {
+	User.findOne( { facebookId: profile.id }, function( err, user ) {
+		if( err ) {
+			console.log( err );  // handle errors!
+			done( err,false );
+		}
+		if ( !err && user !== null ) {
+			done( null, user );
+		} else {
+			user = new User( {
+				facebookId: profile.id,
+				firstname: profile.name.givenName,
+				lastname: profile.name.familyName,
+				username: profile.displayName
+			} );
+			user.save( function( err ) {
+				if( err ) {
+					console.log( err );  // handle errors!
+				} else {
+					done( null, user );
+				}
+			} );
+		}
+	} );
+}
+)
+);
+
+exports.GitHubPassport = passport.use( new GitHubStrategy( {
+	clientID: config.github.client_id,
+	clientSecret: config.github.client_secret,
+	callbackURL: config.github.callbackURL
+}, function( accessToken, refreshToken, profile, done ) {
+	User.findOne( { githubId: profile.id }, function( err, user ) {
+		if( err ) {
+			console.log( err );  // handle errors!
+			done( err,false );
+		}
+		if ( !err && user !== null ) {
+			done( null, user );
+		} else {
+			user = new User( {
+				githubId: profile.id,
+				fullname: profile.displayName,
+				username: profile.username
+			} );
+			user.save( function( err ) {
+				if( err ) {
+					done( err,false );  // handle errors!
+				} else {
+					done( null, user );
+				}
+			} );
+		}
+	} );
+}
+
+) );

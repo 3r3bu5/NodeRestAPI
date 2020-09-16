@@ -46,7 +46,7 @@
 - [x] ~~Support HTTPS and force users to send only HTTPS requests~~
 - [x] ~~Add UploadRouter to handle upload images~~
 - [x] ~~Support CORS~~
-- [ ]   Implement OAuth
+- [x] ~~Implement GitHub/Facebook OAuth~~
 - [ ]   Security Enhancements (maybe)?
 - [ ]   Firebase (maybe) ?
 - [ ]   Allow uploading files to AWS S3 instead of local storage ?
